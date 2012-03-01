@@ -1,4 +1,13 @@
 AccountOAuth::Application.routes.draw do
+  get "service/index"
+
+  get "login/login"
+
+  get "login/auth"
+
+
+  match "/auth/:provider/callback" => "login#auth"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
