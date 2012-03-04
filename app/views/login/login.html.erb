@@ -1,2 +1,17 @@
 <h1>Login#login</h1>
-<%= link_to 'ログイン', "/auth/twitter"%>
+<%= form_tag do %>
+  <div>
+    <label for="login_id">ID:</label>
+    <p><%= text_field_tag :login_id %></p>
+  </div>
+  <div>
+    <label for="password">パスワード:</label>
+    <p><%= password_field_tag :password %></p>
+  </div>
+  <%= submit_tag "ログイン" %>
+<font color="red"><%= flash[:notice] %></font>
+<% end%>
+
+<%= button_to 'Twitterでログイン', "/auth/twitter", :method=>'get'%>
+<%= link_to 'ユーザー登録', :controller=>'users', :action=>'new' %>
+<%= flash[:alert] %>

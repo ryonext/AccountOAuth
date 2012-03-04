@@ -1,6 +1,7 @@
+#encoding: utf-8
 class LoginController < ApplicationController
 
-  #ログインボタン押下後の処理
+  #Twitterでログインボタン押下後の処理
   def auth
     #Twitterの情報を取得
     auth = request.env["omniauth.auth"]
@@ -18,6 +19,22 @@ class LoginController < ApplicationController
     session[:last_login] = user.last_login
     #ログインしたあとのページヘ
     redirect_to :controller=>'service', :action=>'index'
+  end
+
+  def login
+    if request.post?
+      user = User.authenticate(params[:login_id], params[:password])
+      if user
+        #ユーザーIDをセッションに入れる
+        session[:user_id] = user.id
+        #最終ログイン日もセッションに入れる
+        session[:last_login] = user.last_login
+        #ログインしたあとのページヘ
+        redirect_to :controller=>'service', :action=>'index'
+      else
+        flash.now[:notice] = "ユーザーIDとパスワードの組み合わせが間違っています"
+      end
+    end
   end
 
 end
