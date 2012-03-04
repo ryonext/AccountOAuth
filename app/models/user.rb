@@ -4,10 +4,10 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
    
   validates_presence_of :login_id
-#  validates_uniqueness_of :login_id
+  validates_uniqueness_of :login_id, :scope =>'provider'
   attr_accessor       :password_confirmation
   validates_confirmation_of :password
-#  validate :password_non_blank
+  validate :password_non_blank
 
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -56,8 +56,9 @@ class User < ActiveRecord::Base
 
   private
 
+
   def password_non_blank
-    errors.add(:password, "パスワードを入れてください") if hashed_password.blank?
+    errors.add(:password, "パスワードを入れてください") if provider == "original" && hashed_password.blank?
   end
 
   def self.encrypted_password(password, salt)
