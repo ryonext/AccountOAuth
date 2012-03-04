@@ -11,10 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120304082535) do
+ActiveRecord::Schema.define(:version => 20120304115948) do
 
   create_table "users", :force => true do |t|
-    t.string   "twitter_id"
     t.string   "screen_name"
     t.string   "nickname"
     t.datetime "last_login"
@@ -25,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20120304082535) do
     t.string   "login_id"
     t.string   "hashed_password"
     t.string   "salt"
+    t.string   "provider"
   end
 
 end

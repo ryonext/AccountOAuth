@@ -8,7 +8,7 @@ class LoginController < ApplicationController
 
 
     #DBにデータはある？
-    user = User.find_by_twitter_id(auth["uid"])
+    user = User.find_by_login_id_and_provider(auth["uid"], 'twitter')
     if user == nil
       #無いなら登録
       user = User.create_with_omniauth(auth)
@@ -35,6 +35,12 @@ class LoginController < ApplicationController
         flash.now[:notice] = "ユーザーIDとパスワードの組み合わせが間違っています"
       end
     end
+  end
+
+  def logout
+    session[:user_id] = nil
+    session[:last_login] = nil
+    redirect_to root_url, :notice => "ログアウトしました"
   end
 
 end

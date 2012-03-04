@@ -5,6 +5,8 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user])
+    #providerをoriginalにする
+    @user.provider = "original"
 
     respond_to do |format|
       if @user.save

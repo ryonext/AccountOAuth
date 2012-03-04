@@ -9,6 +9,8 @@ AccountOAuth::Application.routes.draw do
 
   get "login/auth"
 
+  get "login/logout"
+
 
   match "/auth/:provider/callback" => "login#auth"
 
